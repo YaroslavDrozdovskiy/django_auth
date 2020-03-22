@@ -131,3 +131,7 @@ INTERNAL_IPS = [
     '127.0.0.1',
    
 ]
+
+from django.urls import reverse_lazy
+LOGIN_REDIRECT_URL = reverse_lazy('common:index')
+LOGOUT_REDIRECT_URL = reverse_lazy('common:index')
