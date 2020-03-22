@@ -4,13 +4,14 @@ from django.contrib.auth import login, authenticate
 from common.forms import ProfileCreationForm
 from django.http.response import HttpResponseRedirect
 from django.urls import reverse_lazy
+from django.shortcuts import render
 from common.models import UserProfile
 
 
 class RegisterView(FormView):
-    
+
     template_name='register.html',
-    success_url=reverse_lazy('common:profile-create'),
+    success_url=reverse_lazy('common:profile_create'),
     form_class = UserCreationForm
 
     def form_valid(self, form):
@@ -19,18 +20,18 @@ class RegisterView(FormView):
         raw_password = form.cleaned_data.get('password1')
         login(self.request, authenticate(
             username=username, password=raw_password))
-        return super(RegisterView, self).form_valid(form)
+        return super().form_valid(form)
 
 
 class CreateUserProfile(FormView):
 
     form_class = ProfileCreationForm
-    template_name = 'profile-create.html'
+    template_name = 'profile_create.html'
     success_url = reverse_lazy('common:index')
 
     def dispatch(self, request, *args, **kwargs):
         """
-        Если пользователь не зарегистрирован, то перенаправить на ворму логина
+        Если пользователь не зарегистрирован, то перенаправить на форму логина
         """
         if self.request.user.is_anonymous:
             return HttpResponseRedirect(reverse_lazy('common:login'))

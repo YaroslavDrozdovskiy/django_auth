@@ -9,9 +9,9 @@
     <body>
         {% if username %}
         <h1>Привет, {{ username }}! Я знаю, что тебе {{ age }} лет!</h1>
-        <p>Тебе нужно <a href="register/">зарегистрироваться</a> или <a href="login">войти на сайт</a>!</p>
+        <p>Тебе нужно <a href="{% url 'common:register' %}">зарегистрироваться</a> или <a href="login">войти на сайт</a>!</p>
         {% else %}
-        <p>Тебе нужно <a href="login">войти</a> на сайт!</p>
+        <p>Тебе нужно <a href="login">войти</a> на сайт! </p>
         {% endif %}
     </body>
 </html>
