@@ -5,7 +5,9 @@ from common.forms import ProfileCreationForm
 from django.http.response import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.shortcuts import render
-from common.models import UserProfile
+from allauth.socialaccount.models import SocialAccount
+# from common.models import UserProfile
+
 
 
 class RegisterView(FormView):
@@ -51,7 +53,7 @@ def index(request):
     context = {}
     if request.user.is_authenticated:  
         context['username'] = request.user.username  
-        context['age'] = UserProfile.objects.get(user=request.user).age
+        context['github_url'] = SocialAccount.objects.get(provider='github', user=request.user).extra_data['html_url']
     return render(request, 'index.html', context)
 
 

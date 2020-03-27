@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+from django.urls import reverse_lazy
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -27,7 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,6 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'common',
     'debug_toolbar',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
 ]
 
 MIDDLEWARE = [
@@ -82,7 +87,10 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -126,12 +134,13 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
+SITE_ID = 1
+
 INTERNAL_IPS = [
 
     '127.0.0.1',
-   
+
 ]
 
-from django.urls import reverse_lazy
 LOGIN_REDIRECT_URL = reverse_lazy('common:index')
 LOGOUT_REDIRECT_URL = reverse_lazy('common:index')
