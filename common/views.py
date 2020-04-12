@@ -53,7 +53,7 @@ def index(request):
     context = {}
     if request.user.is_authenticated:  
         context['username'] = request.user.username  
-        context['github_url'] = SocialAccount.objects.get(provider='github', user=request.user).extra_data['html_url']
+        # context['github_url'] = SocialAccount.objects.get(provider='github', user=request.user).extra_data['html_url']
     return render(request, 'index.html', context)
 
 

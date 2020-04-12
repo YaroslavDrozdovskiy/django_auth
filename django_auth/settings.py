@@ -143,4 +143,6 @@ INTERNAL_IPS = [
 ]
 
 LOGIN_REDIRECT_URL = reverse_lazy('common:index')
-LOGOUT_REDIRECT_URL = reverse_lazy('common:index')
+# LOGIN_URL = reverse_lazy('common:login')
+# LOGOUT_REDIRECT_URL = reverse_lazy('common:index')
+
